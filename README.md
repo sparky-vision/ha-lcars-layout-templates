@@ -49,6 +49,10 @@ Then, under grid-template-areas, we give all those areas names. Areas can have m
 
 If your screen isn't wide enough, you won't see the left-hand "sidebar" with the little animated doodad.
 
+And the result, when adjusted correctly, should look something like this (for this _particular_ layout):
+
+![Screenshot 2024-10-07 194150](https://github.com/user-attachments/assets/6da94ffd-f5e3-4314-8e00-85ff632e5633)
+
 Anyway, the cards on the template are laid out to be in these sections, and you can see this in the code of the various cards, which looks like this:
 
 ```
@@ -56,13 +60,26 @@ view_layout:
   grid-area: info_top
 ```
 
-This snippet tells the element where in the grid to go. The element can span more than one cell, this is done like this:
+This snippet tells the element where in the grid to go. If you want to make a new card and place it, make sure this code is in the yaml of the card to move it to where you want it and resize it as you wish. The element can span more than one cell, this is done like this:
 
 ```
  grid-row-end: span 1
 ```
 
 You can also specify column-row-end, and you don't have to specify a "span _n_", you can use the name of the ending row or column.
+
+The "control_area" grid section of my layouts (and there might be a "control_area_a" or "control_area_left", or some variation thereof) contains a _second_ grid, into which you can arrange all the things you want that view to have. In my instance, this is things like all the heating and cooling my house has. The center buttons are meant for each "section", like say "Lighting" or "AC" or "Music", and the far left buttons are things I want every layout to have access to, like say, smoke alarm status or something. The second grid, at least for now, is defined pretty blandly, like this:
+
+```
+grid-template-columns: 33% 33% 33%
+grid-template-rows: 33% 33% 33%
+grid-template-areas: |
+  "c1r1 c2r1 c3r1"
+  "c1r2 c2r2 c3r2"
+  "c1r3 c2r3 c3r3"
+```
+
+This is your basic tic-tac-toe grid, but note that it starts _inside_ the lower-right grid section of the main grid; stuff is intended to stay in there and you can position elements without but not outside that. It's there to keep your controls contained.
 
 There's a _lot_ you can do with CSS grid layouts, see more information on the lovelace-layout-card page, and this page here:
 
