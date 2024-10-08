@@ -1,0 +1,399 @@
+title: LCARS template classic
+path: LCARS-template-classic
+type: custom:grid-layout
+layout:
+  grid-template-columns: 12% 10% 78%
+  grid-template-rows: 38vh 2vh 60vh
+  grid-template-areas: |
+    "graph header header"
+    "info_top section_select_top main_top"
+    "info_buttons section_select control_area"
+cards:
+  - chart_type: line
+    period: day
+    type: statistics-graph
+    entities:
+      - sensor.outside_temp
+    stat_types:
+      - mean
+      - min
+      - max
+    days_to_show: 3
+    title: Exterior temp
+    hide_legend: false
+    logarithmic_scale: false
+    view_layout:
+      grid-area: graph
+      grid-row-end: span 1
+    card_mod:
+      class: middle-left
+  - type: vertical-stack
+    cards:
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: Home
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            width: 14.35em
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: Other function
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            width: 14.35em
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+      - type: custom:html-card
+        title: ""
+        content: |
+          <span class="label_text">Section title</span>
+        card_mod:
+          class: footer-left
+          style: |
+            ha-card {
+              text-align: right;
+              font-size: 5em !important;
+              color: var(--lcars-butter) !important;
+              object-fit: scale-down;
+              }
+            .label_text {
+              position: relative;
+              top: -2em !important;
+            }
+      - type: custom:html-card
+        title: ""
+        content: |
+          <span>&nbsp</span>
+        card_mod:
+          class: header-left
+          style: |
+            ha-card {
+              text-align: right;
+              font-size: 5em !important;
+              color: var(--lcars-butter) !important;
+              --lcars-vertical-border: 3.45em !important;
+              --lcars-horizontal-border: 0.2em !important;
+              object-fit: scale-down;
+              }
+    view_layout:
+      grid-area: header
+  - square: false
+    type: grid
+    cards:
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-square
+        entity: null
+        label: Grid area info_buttons
+        show_icon: false
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-secondary)
+                active: var(--lcars-green)
+            height: 10em
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-square
+        entity: null
+        label: Button 2
+        show_icon: false
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background: "#00ff00"
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-square
+        entity: null
+        label: Button 3
+        show_icon: false
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background: "#00ff00"
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-square
+        entity: null
+        label: Button 4
+        show_icon: false
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background: "#00ff00"
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-square
+        entity: null
+        label: Button 5
+        show_icon: false
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background: "#00ff00"
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-square
+        entity: null
+        label: Button 6
+        show_icon: false
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background: "#00ff00"
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-square
+        entity: null
+        label: Button 7
+        show_icon: false
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-secondary)
+                active: var(--lcars-green)
+            height: 10em
+          text:
+            label:
+              font_size: 1.3em
+              font_weight: bold
+    columns: 1
+    view_layout:
+      grid-area: info_top
+  - square: false
+    type: grid
+    cards:
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: Section_select_top
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-secondary)
+                active: var(--lcars-green)
+          text:
+            label:
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: And section_select
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-primary)
+                active: var(--lcars-green)
+          text:
+            label:
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: Button 3
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-primary)
+                active: var(--lcars-green)
+            height: 10em
+          text:
+            label:
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: Button 4
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-quaternary)
+                active: var(--lcars-green)
+            height: 10em
+          text:
+            label:
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: Button 5
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-secondary)
+                active: var(--lcars-green)
+            height: 10em
+          text:
+            label:
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+      - type: custom:button-card
+        template:
+          - cb-lcars-button-picard-filled
+        entity: input_boolean.enable_verbal_notifications
+        label: Button 6
+        show_icon: true
+        show_state: true
+        show_name: true
+        variables:
+          card:
+            color:
+              background:
+                inactive: var(--lcars-ui-primary)
+                active: var(--lcars-green)
+            height: 10em
+          text:
+            label:
+              font_weight: bold
+          icon:
+            color:
+              active: transparent
+              inactive: transparent
+              background:
+                active: var(--picard-blue)
+                inactive: transparent
+    columns: 1
+    view_layout:
+      grid-area: section_select_top
+  - type: custom:layout-card
+    layout_type: custom:grid-layout
+    layout:
+      grid-template-columns: 33% 33% 33%
+      grid-template-rows: 33% 33% 33%
+      grid-template-areas: |
+        "c1r1 c2r1 c3r1"
+        "c1r2 c2r2 c3r2"
+        "c1r3 c2r3 c3r3"
+    cards: []
+    view_layout:
+      grid-area: control_area
