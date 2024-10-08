@@ -3,7 +3,7 @@ Some templates for HA-LCARS
 
 Here are some grid layouts for your Home Assistant HA-LCARS needs.
 
-In messing around with Home Assistant, I ran across the delightful HA-LCARS theme. Now, the two people who know anything about me know that I'm 1) a giant Star Trek nerd with an encyclopedic knowledge of most of the franchise from TNG onward and 2) a general home automation nerd. Naturally, I was drawn to the intersection of a real and imagined future with Home Assistant and theming it to look like Michael and Denise Okuda's amazing work designing the user interface of the fuuuutreeeee in Star Trek: TNG. It's a very recognizable interface, and I - along with lots of others - think the general use of color and shapes seems very usable. Anyhoo. In setting about to recreate some of the layouts we see on-screen, I ended up deciding to use lovelace-layout-card grids, which lets you define CSS grids and position things with them. This seems, by *far*, the best way to position things within the HA system. I decided maybe the community could use my snippets, and so, here they are.
+In messing around with Home Assistant, I ran across the delightful HA-LCARS theme. Now, the people who know anything about me know two things: that I'm 1) a giant Star Trek nerd with an encyclopedic knowledge of most of the franchise from TNG onward and 2) a general home automation nerd. Naturally, I was drawn to the intersection of a real and imagined future with Home Assistant and theming it to look like Michael and Denise Okuda's amazing work designing the user interface of the fuuuutreeeee in Star Trek: TNG. It's a very recognizable interface, and I - along with lots of others - think the general use of color and shapes seems very usable. Anyhoo. In setting about to recreate some of the layouts we see on-screen, I ended up deciding to use lovelace-layout-card grids, which lets you define CSS grids and position things with them. This seems, by *far*, the best way to position things within the HA system. I decided maybe the community could use my snippets, and so, here they are.
 
 To use, install all the dependencies, and then copy / paste from the file you want to use into the yaml editor of your layout.
 
@@ -18,7 +18,7 @@ To use these, you'll need:
 Home Assistant, *obviously*.<br>
 <a href="https://github.com/th3jesta/ha-lcars">HA-LCARS</a>. The thing that makes this all worth the while.<br>
 <a href="https://github.com/thomasloven/lovelace-layout-card">Lovelace Layout Card</a><br>
-<a href="https://github.com/snootched/cb-lcars">CB-LCARS". I make a lot of use of snootched's stuff he's written. Note that this project has a lot of its own dependencies, which the layouts don't necessarily require, but which you might find useful.<br><br>
+<a href="https://github.com/snootched/cb-lcars">CB-LCARS"</a>. I make a lot of use of snootched's stuff he's written. Note that this project has a lot of its own dependencies, which the layouts don't necessarily require, but which you might find useful.<br><br>
 
 <h1>Installing</h1>
 
