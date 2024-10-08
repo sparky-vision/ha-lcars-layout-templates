@@ -93,3 +93,5 @@ Anyway, each layout I'll post here will need its grid adjusted in the view css t
 ```
 
 You'll want to adjust those numbers so that they line up nicely with the buttons, and size nicely for your device.
+
+Anyway, have fun, and I hope I'll have more time to work on this project, make some more layouts (I already have some ideas) and contribute to a very cool community. If you have ideas for further layouts, let me know!
