@@ -1,399 +1,930 @@
-title: LCARS template classic
-path: LCARS-template-classic
+title: lcars_classic_template
+path: lcars_classic_template
 type: custom:grid-layout
 layout:
-  grid-template-columns: 12% 10% 78%
-  grid-template-rows: 38vh 2vh 60vh
+  grid-template-columns: 10% 13% 76%
+  grid-template-rows: 28.2vh 2vh 60vh
   grid-template-areas: |
     "graph header header"
-    "info_top section_select_top main_top"
+    "info_top header_bottom main_top"
     "info_buttons section_select control_area"
 cards:
-  - chart_type: line
-    period: day
-    type: statistics-graph
-    entities:
-      - sensor.outside_temp
-    stat_types:
-      - mean
-      - min
-      - max
-    days_to_show: 3
-    title: Exterior temp
-    hide_legend: false
-    logarithmic_scale: false
+  - type: custom:horizon-card
+    latitude: 44.9686728
+    longitude: -93.0703532
+    elevation: 879
+    time_zone: America/Chicago
+    fields:
+      sunrise: true
+      sunset: true
+      dawn: true
+      noon: true
+      dusk: true
+      moonrise: true
+      moonset: true
+      moon_phase: true
     view_layout:
       grid-area: graph
-      grid-row-end: span 1
+      grid-row-end: span 2
     card_mod:
-      class: middle-left
-  - type: vertical-stack
+      class: middle-blank
+      style: |
+        .horizon-card {
+          padding: 0px !important;
+          }
+        horizon-card-graph {
+          margin: unset !important;
+          }
+        ha-card {
+          margin-top: 0.5vh !important;
+          border: 2px solid var(--lcars-ui-primary) !important;
+          height: 27vh;
+          font-size: 0.9em !important;
+          }
+  - type: custom:layout-card
+    layout_type: custom:grid-layout
     cards:
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: Home
-        show_icon: true
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            width: 14.35em
-          text:
-            label:
-              font_size: 1.3em
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: Other function
-        show_icon: true
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            width: 14.35em
-          text:
-            label:
-              font_size: 1.3em
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
-      - type: custom:html-card
-        title: ""
-        content: |
-          <span class="label_text">Section title</span>
+      - type: vertical-stack
+        cards:
+          - type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Master systems display
+              card:
+                color:
+                  background:
+                    inactive: var(--lcars-ui-secondary)
+                    active: var(--lcars-green)
+                    default: var(--lcars-ui-secondary)
+                    unavailable: var(--lcars-ui-secondary)
+                width: 12.4vw
+                height: 7.5vh
+              text:
+                label:
+                  font_size: 1.15em
+                  font_weight: bold
+            tap_action:
+              action: custom
+              multi_calls: |
+                [[[
+                 hass.callService(
+                   "script",
+                   "turn_on",
+                   { entity_id: "script.msd_cal_select"}
+                 )
+
+                 window.history.pushState(null,"","/dashboard-diningroom/dr_msd");
+                 window.dispatchEvent(new CustomEvent("location-changed"));
+                 ]]] 
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+          - type: custom:html-card
+            title: ""
+            content: |
+              <span class="label_text">Master systems display</span>
+            card_mod:
+              class: footer-left
+              style: |
+                ha-card {
+                  text-align: right;
+                  font-size: 5em !important;
+                  --lcars-vertical-border: 12.38vw !important;
+                  --lcars-horizontal-border: 0.2em !important;
+                  color: var(--lcars-butter) !important;
+                  object-fit: scale-down;
+                  }
+                .label_text {
+                  position: relative;
+                  top: -10vh !important;
+                  right: -1vw !important;
+                }
+          - type: custom:html-card
+            title: ""
+            content: |
+              <span>&nbsp</span>
+            card_mod:
+              class: header-left
+              style: |
+                ha-card {
+                  text-align: right;
+                  font-size: 5em !important;
+                  color: var(--lcars-butter) !important;
+                  --lcars-vertical-border: 12.38vw !important;
+                  --lcars-horizontal-border: 0.2em !important;
+                  }
+                .header-left {
+                  max-height: 6vh !important;
+                }
+        view_layout:
+          grid-area: 1 / 1 / 6 / 6
         card_mod:
-          class: footer-left
           style: |
-            ha-card {
-              text-align: right;
-              font-size: 5em !important;
-              color: var(--lcars-butter) !important;
-              object-fit: scale-down;
+            :host {
+              margin-left: -4px !important;
               }
-            .label_text {
-              position: relative;
-              top: -2em !important;
-            }
-      - type: custom:html-card
-        title: ""
-        content: |
-          <span>&nbsp</span>
-        card_mod:
-          class: header-left
-          style: |
-            ha-card {
-              text-align: right;
-              font-size: 5em !important;
-              color: var(--lcars-butter) !important;
-              --lcars-vertical-border: 3.45em !important;
-              --lcars-horizontal-border: 0.2em !important;
-              object-fit: scale-down;
-              }
+      - type: horizontal-stack
+        cards:
+          - show_name: true
+            show_icon: false
+            type: button
+            tap_action:
+              action: toggle
+            entity: scene.downstairs_bright
+            name: "Lights: bright"
+            card_mod:
+              class: button-lozenge-right
+              style: |
+                ha-card {
+                  width: 14vw;
+                }
+          - show_name: true
+            show_icon: false
+            type: button
+            tap_action:
+              action: toggle
+            entity: scene.night_light
+            name: "Lights: night mode"
+            card_mod:
+              class: button-lozenge-right
+              style: |
+                ha-card {
+                  width: 14vw;
+                }
+        view_layout:
+          grid-area: 3 / 5 / 4 / 6
+    layout:
+      grid-template-columns: repeat(4, 1fr) 0.5fr
+      grid-template-rows: 1fr 0.2fr 0.5fr repeat(2, 1fr)
+      margin: "-4px"
     view_layout:
       grid-area: header
+    card_mod:
+      style: |
+        :host {
+          transition: none !important;
+          }
+        ha-card {
+          transition: none !important;
+          }
   - square: false
     type: grid
     cards:
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-square
-        entity: null
-        label: Grid area info_buttons
-        show_icon: false
-        show_state: true
-        show_name: true
+      - type: custom:cb-lcars-button-card
+        cblcars_card_type: cb-lcars-button-picard-filled
+        show_label: true
         variables:
+          label: 715 York Ave
           card:
             color:
               background:
-                inactive: var(--lcars-ui-secondary)
-                active: var(--lcars-green)
-            height: 10em
+                default: var(--lcars-ui-tertiary)
+                active: var(--lcars-ui-tertiary)
+                inactive: var(--lcars-ui-tertiary)
+            height: 7vh
           text:
             label:
-              font_size: 1.3em
-              font_weight: bold
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-square
-        entity: null
-        label: Button 2
-        show_icon: false
+              font_size: 1.5em
+              align_items: center
+              font_weight: 700
+              align: center
+              justify: flex-end
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+      - type: custom:better-moment-card
+        parentStyle: line-height:3em;
+        moment:
+          - format: HH:mm:ss
+            parentStyle: font-size:3em; text-align:right; font-weight:400;
+          - format: ZZZZ
+            parentStyle: font-size:2em; text-align:right;
+          - format: yyyy.MM.dd
+            parentStyle: font-size:1.7em; text-align:right;
+        card_mod:
+          class: button-barrel-left
+          style: |
+            ha-card {
+              background: var(--lcars-ui-secondary) !important;
+              }
+      - type: custom:cb-lcars-button-card
+        cblcars_card_type: cb-lcars-button-picard-filled
+        show_label: true
         show_state: true
-        show_name: true
         variables:
-          card:
-            color:
-              background: "#00ff00"
-          text:
-            label:
-              font_size: 1.3em
-              font_weight: bold
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-square
-        entity: null
-        label: Button 3
-        show_icon: false
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background: "#00ff00"
-          text:
-            label:
-              font_size: 1.3em
-              font_weight: bold
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-square
-        entity: null
-        label: Button 4
-        show_icon: false
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background: "#00ff00"
-          text:
-            label:
-              font_size: 1.3em
-              font_weight: bold
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-square
-        entity: null
-        label: Button 5
-        show_icon: false
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background: "#00ff00"
-          text:
-            label:
-              font_size: 1.3em
-              font_weight: bold
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-square
-        entity: null
-        label: Button 6
-        show_icon: false
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background: "#00ff00"
-          text:
-            label:
-              font_size: 1.3em
-              font_weight: bold
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-square
-        entity: null
-        label: Button 7
-        show_icon: false
-        show_state: true
-        show_name: true
-        variables:
+          label: Back door
           card:
             color:
               background:
+                default: var(--lcars-ui-primary)
+                active: var(--lcars-ui-primary)
                 inactive: var(--lcars-ui-secondary)
-                active: var(--lcars-green)
-            height: 10em
+                unavailable: var(--lcars-ui-primary)
+            height: 10vh
           text:
             label:
-              font_size: 1.3em
-              font_weight: bold
+              font_size: 1.6em
+              align_items: flex-start
+              font_weight: 700
+              padding:
+                top: 1vh
+              align: center
+              justify: flex-end
+              color:
+                "on": black
+                "off": black
+            state:
+              padding:
+                top: 6vh
+                bottom: 2vh
+              color:
+                non_zero: var(--lcars-ui-primary)
+          entity: lock.yale_back_door_lock
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+        template: []
+        styles:
+          state:
+            - animation: blink 1.5s ease infinite
+      - type: custom:cb-lcars-button-card
+        cblcars_card_type: cb-lcars-button-picard-filled
+        show_label: true
+        show_state: true
+        variables:
+          blink_seconds: 0.8s
+          card:
+            height: 6vh
+            color:
+              background:
+                active: var(--lcars-ui-secondary)
+                inactive: var(--lcars-ui-tertiary)
+                "on": var(--lcars-ui-tertiary)
+                "off": var(--lcars-ui-tertiary)
+                unavailable: var(--lcars-ui-tertiary)
+                non_zero: var(--lcars-ui-tertiary)
+                zero: var(--lcars-ui-tertiary)
+                default: var(--lcars-ui-tertiary)
+          label: Vacuum bin
+          entity: sensor.cygnus_x_1_bin_status
+          text:
+            label:
+              font_size: 1.2em
+              align_items: flex-start
+              font_weight: 300
+              padding:
+                top: 0.3vh
+              align: center
+              justify: flex-end
+              color:
+                "on": black
+                "off": black
+            state:
+              padding:
+                top: 2.8vh
+                bottom: 2vh
+              font_size: 1.2em
+              align_items: flex-start
+              font_weight: 800
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+        template:
+          - cb-lcars-state-on-blink
+        state:
+          - id: state_on
+            operator: "=="
+            value: Full
+          - id: state_off
+            operator: "!="
+            value: Not full
+      - type: custom:cb-lcars-button-card
+        cblcars_card_type: cb-lcars-button-picard-filled
+        show_label: true
+        show_state: true
+        variables:
+          card:
+            height: 6vh
+            color:
+              background:
+                active: var(--lcars-ui-tertiary)
+                inactive: var(--lcars-ui-tertiary)
+                "on": var(--lcars-ui-tertiary)
+                "off": var(--lcars-ui-tertiary)
+                unavailable: var(--lcars-ui-tertiary)
+                non_zero: var(--lcars-ui-tertiary) !important
+                zero: var(--lcars-ui-tertiary)
+                default: var(--lcars-ui-tertiary)
+          label: Vacuum battery
+          entity: sensor.cygnus_x_1_battery_level
+          text:
+            label:
+              font_size: 1.2em
+              align_items: flex-start
+              font_weight: 300
+              padding:
+                top: 0.3vh
+              align: center
+              justify: flex-end
+              color:
+                active: black
+                inactive: black
+                "on": black
+                "off": black
+                unavailable: black
+                non_zero: black
+                zero: black
+                default: black
+            state:
+              padding:
+                top: 2.8vh
+                bottom: 2vh
+              font_size: 1.2em
+              align_items: flex-start
+              font_weight: 800
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+        extra_styles: |
+          [[[ 
+            return ` 
+            @keyframes alternateColors {
+              0% {
+                background-color: var(--lcars-ui-secondary);
+              }
+              50% {
+                background-color: var(--lcars-ui-tertiary);
+              }
+            }`;
+          ]]]
+        state:
+          - id: state_unavailable
+            styles:
+              card:
+                - animation: alternateColors 1s steps(1,end) infinite
+      - type: custom:cb-lcars-button-card
+        cblcars_card_type: cb-lcars-button-picard-filled
+        show_label: true
+        show_state: true
+        variables:
+          card:
+            height: 6vh
+            color:
+              background:
+                default: var(--lcars-ui-primary)
+                active: var(--lcars-ui-primary)
+                inactive: var(--lcars-ui-primary)
+                unavailable: var(--lcars-ui-primary)
+                "on": var(--lcars-ui-primary)
+                "off": var(--lcars-ui-primary)
+                non_zero: var(--lcars-ui-primary)
+                zero: var(--lcars-ui-primary)
+                hvac_heat: var(--lcars-ui-primary)
+                hvac_cool: var(--lcars-ui-primary)
+                hvac_other: var(--lcars-ui-primary)
+          label: Weather alerts
+          entity: sensor.nws_alerts
+          text:
+            label:
+              font_size: 1.2em
+              align_items: flex-start
+              font_weight: 300
+              padding:
+                top: 0.3vh
+              align: center
+              justify: flex-end
+              color:
+                "on": black
+                "off": black
+            state:
+              padding:
+                top: 2.8vh
+                bottom: 2vh
+              font_size: 1.2em
+              align_items: flex-start
+              font_weight: 800
+              color:
+                active: black
+                inactive: black
+                "on": black
+                "off": black
+                unavailable: black
+                non_zero: black
+                zero: black
+                default: black
+                unknown: black
+        extra_styles: |
+          [[[ 
+            return ` 
+            @keyframes alternateColors {
+              0% {
+                background-color: var(--lcars-ui-secondary);
+              }
+              50% {
+                background-color: var(--lcars-ui-quaternary);
+              }
+            }`;
+          ]]]
+        state:
+          - id: state_nonzero
+            styles:
+              card:
+                - animation: alternateColors 1s steps(1,end) infinite
+          - id: state_unavailable
+            styles:
+              card:
+                - animation: alternateColors 1s steps(1,end) infinite
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+      - type: custom:cb-lcars-button-card
+        cblcars_card_type: cb-lcars-button-picard-filled
+        show_label: true
+        show_state: true
+        variables:
+          card:
+            height: 12vh
+            color:
+              background:
+                active: var(--lcars-ui-primary)
+                inactive: var(--lcars-ui-primary)
+                "on": var(--lcars-ui-primary)
+                "off": var(--lcars-ui-primary)
+                unavailable: var(--lcars-ui-primary)
+                non_zero: var(--lcars-ui-primary)
+                zero: var(--lcars-ui-primary)
+                default: var(--lcars-ui-primary)
+          label: Outside temp
+          entity: sensor.715_york_ave_temperature
+          text:
+            label:
+              font_size: 1.2em
+              align_items: flex-start
+              font_weight: 300
+              padding:
+                top: 0.3vh
+              align: center
+              justify: flex-end
+              color:
+                "on": black
+                "off": black
+            state:
+              color:
+                non_zero: black
+              font_size: 2.5em
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
     columns: 1
     view_layout:
       grid-area: info_top
   - square: false
     type: grid
     cards:
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: Section_select_top
-        show_icon: true
-        show_state: true
-        show_name: true
+      - type: custom:cb-lcars-button-card
+        cblcars_card_type: cb-lcars-button-picard-filled
+        show_label: true
         variables:
+          label: Command functions
           card:
             color:
               background:
+                default: var(--lcars-ui-secondary)
+                active: var(--lcars-ui-secondary)
                 inactive: var(--lcars-ui-secondary)
-                active: var(--lcars-green)
+            height: 11.5vh
           text:
             label:
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: And section_select
-        show_icon: true
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background:
-                inactive: var(--lcars-ui-primary)
-                active: var(--lcars-green)
-          text:
-            label:
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: Button 3
-        show_icon: true
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background:
-                inactive: var(--lcars-ui-primary)
-                active: var(--lcars-green)
-            height: 10em
-          text:
-            label:
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: Button 4
-        show_icon: true
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background:
-                inactive: var(--lcars-ui-quaternary)
-                active: var(--lcars-green)
-            height: 10em
-          text:
-            label:
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: Button 5
-        show_icon: true
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background:
-                inactive: var(--lcars-ui-secondary)
-                active: var(--lcars-green)
-            height: 10em
-          text:
-            label:
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
-      - type: custom:button-card
-        template:
-          - cb-lcars-button-picard-filled
-        entity: input_boolean.enable_verbal_notifications
-        label: Button 6
-        show_icon: true
-        show_state: true
-        show_name: true
-        variables:
-          card:
-            color:
-              background:
-                inactive: var(--lcars-ui-primary)
-                active: var(--lcars-green)
-            height: 10em
-          text:
-            label:
-              font_weight: bold
-          icon:
-            color:
-              active: transparent
-              inactive: transparent
-              background:
-                active: var(--picard-blue)
-                inactive: transparent
+              font_size: 1.3em
+              align_items: flex-start
+              padding:
+                top: 2vh
+              font_weight: 700
+        tap_action:
+          action: none
+        double_tap_action:
+          action: none
+        hold_action:
+          action: none
+      - type: custom:state-switch
+        entity: hash
+        default: env_off
+        states:
+          env_on:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Environment
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-tertiary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_env#env_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+          env_off:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Environment
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-primary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_env#env_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+      - type: custom:state-switch
+        entity: hash
+        default: agenda_off
+        states:
+          agenda_on:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Agenda
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-tertiary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_agenda#agenda_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+          agenda_off:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Agenda
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-primary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_agenda#agenda_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+      - type: custom:state-switch
+        entity: hash
+        default: lighting_off
+        states:
+          lighting_on:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Lighting
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-tertiary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_lighting#lighting_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+          lighting_off:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Lighting
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-primary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_lighting#lighting_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+      - type: custom:state-switch
+        entity: hash
+        default: weather_off
+        states:
+          weather_on:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Weather
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-tertiary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: custom
+              multi_calls: |
+                [[[
+                 hass.callService(
+                   "script",
+                   "turn_on",
+                   { entity_id: "script.default_weather_view"}
+                 )
+
+                 window.history.pushState(null,"","/dashboard-diningroom/dr_weather#weather_on");
+                 window.dispatchEvent(new CustomEvent("location-changed"));
+                 ]]] 
+          weather_off:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Weather
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-primary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: custom
+              multi_calls: |
+                [[[
+                 hass.callService(
+                   "script",
+                   "turn_on",
+                   { entity_id: "script.default_weather_view"}
+                 )
+
+                 window.history.pushState(null,"","/dashboard-diningroom/dr_weather#weather_on");
+                 window.dispatchEvent(new CustomEvent("location-changed"));
+                 ]]] 
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+      - type: custom:state-switch
+        entity: hash
+        default: audio_off
+        states:
+          audio_on:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Audio
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-tertiary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_audio#audio_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+          audio_off:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Audio
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-primary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_audio#audio_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+      - type: custom:state-switch
+        entity: hash
+        default: engineering_off
+        states:
+          engineering_on:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Engineering
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-tertiary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_engineering#engineering_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+          engineering_off:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Engineering
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-primary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_engineering#engineering_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+      - type: custom:state-switch
+        entity: hash
+        default: fire-lifesupport_off
+        states:
+          fire-lifesupport_on:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Fire alarm / <br> life support
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-tertiary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_fire-lifesupport#fire-lifesupport_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
+          fire-lifesupport_off:
+            type: custom:cb-lcars-button-card
+            cblcars_card_type: cb-lcars-button-picard-filled
+            show_label: true
+            variables:
+              label: Fire alarm / <br> life support
+              card:
+                color:
+                  background:
+                    default: var(--lcars-ui-primary)
+                height: 4em
+              text:
+                label:
+                  font_size: 1.2em
+                  font_weight: 700
+            tap_action:
+              action: navigate
+              navigation_path: /dashboard-diningroom/dr_fire-lifesupport#engineering_on
+            double_tap_action:
+              action: none
+            hold_action:
+              action: more-info
+            styles:
+              card:
+                - "--mdc-ripple-color": var(--lcars-ui-tertiary)
+                - "--mdc-ripple-press-opacity": 0.8
     columns: 1
     view_layout:
-      grid-area: section_select_top
-  - type: custom:layout-card
-    layout_type: custom:grid-layout
-    layout:
-      grid-template-columns: 33% 33% 33%
-      grid-template-rows: 33% 33% 33%
-      grid-template-areas: |
-        "c1r1 c2r1 c3r1"
-        "c1r2 c2r2 c3r2"
-        "c1r3 c2r3 c3r3"
-    cards: []
-    view_layout:
-      grid-area: control_area
+      grid-area: header_bottom
