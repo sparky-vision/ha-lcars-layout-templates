@@ -176,7 +176,7 @@ cards:
         cblcars_card_type: cb-lcars-button-picard-filled
         show_label: true
         variables:
-          label: 715 York Ave
+          label: Address goes here
           card:
             color:
               background:
@@ -471,7 +471,7 @@ cards:
                 zero: var(--lcars-ui-primary)
                 default: var(--lcars-ui-primary)
           label: Outside temp
-          entity: sensor.715_york_ave_temperature
+          entity: sensor.address_temperature
           text:
             label:
               font_size: 1.2em
